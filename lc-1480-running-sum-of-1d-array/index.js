@@ -38,12 +38,7 @@
 const runningSum = (nums) => {
   let sum = 0;
 
-  // const result = nums.map(num => {
-  //   sum += num;
-  //   return sum;
-  // });
   for (let i = 1; i < nums.length; i++) {
-    // sum += nums[i];
     nums[i] += nums[i - 1];
   }
   return nums;
