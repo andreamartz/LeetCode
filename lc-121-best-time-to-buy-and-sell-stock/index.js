@@ -57,5 +57,5 @@ function maxProfit(prices) {
     const currProfit = prices[i] - smallest;
     maxProfit = Math.max(maxProfit, currProfit);
   }
-  return maxProfit;
+  return maxProfit >= 0 ? maxProfit : 0;
 }
