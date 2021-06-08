@@ -70,5 +70,5 @@ function maxProfit(prices) {
       currProfit = 0;
     }
   }
-  return runningProfit;
+  return runningProfit + maxProfit;
 }
