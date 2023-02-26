@@ -53,16 +53,16 @@ var findPoisonedDuration = function(timeSeries, duration) {
   let prevEnd = -1;
 
   for (let i = 0; i < timeSeries.length; i += 1) {
-         let start = timeSeries[i];
-         let end = start + duration - 1;
+    let start = timeSeries[i];
+    let end = start + duration - 1;
 
-         if (start <= prevEnd) {
-            // adjust start to remove overlap with previous poisoning
-            start = prevEnd + 1;
-         }
-         const seconds = end - start + 1;
-         totalSeconds += seconds;
-         prevEnd = end;
+    if (start <= prevEnd) {
+      // adjust start to remove overlap with previous poisoning
+      start = prevEnd + 1;
+    }
+    const seconds = end - start + 1;
+    totalSeconds += seconds;
+    prevEnd = end;
   }
 
   return totalSeconds;
