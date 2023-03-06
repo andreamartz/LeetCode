@@ -58,20 +58,44 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-  const l3 = ListNode();
-  let l3Curr = l3;
-  let l3Prev;
-  let l1Curr = l1;
-  let l1Prev;
-  let l2Curr = l2;
-  let l2Prev;
+  let l3 = new ListNode();
+  let l3Head = l3;
   let tens;
-  while (l1Curr && l2Curr) {
-      let mod10 = ((l1Curr.val + l2Curr.val) % 10);
-      tens = Math.floor((l1Curr.val + l2Curr.val) / 10);
-      l3.val = mod10;
-      l3.next.val = tens;  // ??
 
-      // NOT FINISHED
+  while (l1 && l2) {
+      console.log("TOP: ", l1, l2, l3);
+      let mod10 = ((l1.val + l2.val + l3.val) % 10); // ones
+      tens = Math.floor((l1.val + l2.val) / 10);  // tens
+      l3.val = mod10;
+      console.log("L3Val: ", l3.val);
+      let l3Next = new ListNode(tens);  // carry over the tens   
+      l3.next = l3Next;  
+      l1 = l1.next;
+      l2 = l2.next;
+      l3 = l3.next;
+      console.log("BOTTOM: ", l1, l2, l3);
   }
+
+  while (l1 || l2) {
+      if (l1) {
+          let mod10 = ((l1.val + l3.val) % 10); // ones
+          tens = Math.floor((l1.val) / 10);  // tens
+          l3.val = mod10;
+          l3.next = new ListNode(tens);  // carry over the tens     
+          l1 = l1.next;
+          l3 = l3.next;
+      }
+
+      if (l2) {
+          let mod10 = ((l2.val + l3.val) % 10); // ones
+          tens = Math.floor((l2.val) / 10);  // tens
+          l3.val = mod10;
+          l3.next = new ListNode(tens);  // carry over the tens     
+          l2 = l2.next;
+          l3 = l3.next;
+      }
+  }
+  return l3Head;
+
+  // NOT FINISHED
 };
