@@ -58,44 +58,69 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-  let l3 = new ListNode();
-  let l3Head = l3;
-  let tens;
+    let l3Next = new ListNode();
+    let l3 = new ListNode(0, l3Next);
+    const l3Head = l3;
 
-  while (l1 && l2) {
-      console.log("TOP: ", l1, l2, l3);
-      let mod10 = ((l1.val + l2.val + l3.val) % 10); // ones
-      tens = Math.floor((l1.val + l2.val) / 10);  // tens
-      l3.val = mod10;
-      console.log("L3Val: ", l3.val);
-      let l3Next = new ListNode(tens);  // carry over the tens   
-      l3.next = l3Next;  
-      l1 = l1.next;
-      l2 = l2.next;
-      l3 = l3.next;
-      console.log("BOTTOM: ", l1, l2, l3);
-  }
+    let l3Prev = new ListNode(null, l3);
+    l3.next = l3Next;
 
-  while (l1 || l2) {
-      if (l1) {
-          let mod10 = ((l1.val + l3.val) % 10); // ones
-          tens = Math.floor((l1.val) / 10);  // tens
-          l3.val = mod10;
-          l3.next = new ListNode(tens);  // carry over the tens     
-          l1 = l1.next;
-          l3 = l3.next;
-      }
+    let tens;
+    let mod10;
 
-      if (l2) {
-          let mod10 = ((l2.val + l3.val) % 10); // ones
-          tens = Math.floor((l2.val) / 10);  // tens
-          l3.val = mod10;
-          l3.next = new ListNode(tens);  // carry over the tens     
-          l2 = l2.next;
-          l3 = l3.next;
-      }
-  }
-  return l3Head;
+    while (l1 && l2) {
+        mod10 = ((l1.val + l2.val + l3.val) % 10); // ones
+        tens = Math.floor((l1.val + l2.val) / 10);  // tens
 
-  // NOT FINISHED
+        l3.val = mod10;
+        l3.next = new ListNode(tens);    // carry over the tens
+        l1 = l1.next;
+        l2 = l2.next;
+        l3Prev = l3;
+        l3 = l3.next;
+    }
+
+    while (l1 || l2) {
+        if (l1) {
+            // const nodes = add(l1, l3);
+            // [l1, l3] = nodes;
+            mod10 = ((l1.val + l3.val) % 10); // ones
+            tens = Math.floor((l1.val + l3.val) / 10);  // tens
+
+            l3.val = mod10;
+            l3.next = new ListNode(tens);  // carry over the tens     
+            l1 = l1.next;
+            l3Prev = l3;
+            l3 = l3.next;
+        }
+
+        if (l2) {
+            // const nodes = add(l2, l3);
+            // [l2, l3] = nodes;
+            mod10 = ((l2.val + l3.val) % 10); // ones
+            tens = Math.floor((l2.val + l3.val) / 10);  // tens
+
+            l3.val = mod10;
+            l3.next = new ListNode(tens);  // carry over the tens     
+            l2 = l2.next;
+            l3Prev = l3;
+            l3 = l3.next;
+        }
+    }
+    if (l3.val === 0) {
+        l3Prev.next = null;
+    }
+    return l3Head;
 };
+
+// function add(node1, node2) {
+//     const mod10 = ((node1.val + node2.val) % 10); // ones
+//     const tens = Math.floor((node1.val + node2.val) / 10);  // tens
+
+//     node2.val = mod10;
+//     node2.next = new ListNode(tens);  // carry over the tens     
+//     node1 = node1.next;
+//     const node2Prev = node2;
+//     node2 = node2.next;
+//     return [node1, node2];
+// }
