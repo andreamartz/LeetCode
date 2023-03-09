@@ -63,14 +63,14 @@ var addTwoNumbers = function(l1, l2) {
     const l3Head = l3;
 
     let l3Prev = new ListNode(null, l3);
-    l3.next = l3Next;
+    // l3.next = l3Next;
 
     let tens;
     let mod10;
 
     while (l1 && l2) {
         mod10 = ((l1.val + l2.val + l3.val) % 10); // ones
-        tens = Math.floor((l1.val + l2.val) / 10);  // tens
+        tens = Math.floor((l1.val + l2.val + l3.val) / 10);  // tens
 
         l3.val = mod10;
         l3.next = new ListNode(tens);    // carry over the tens
@@ -124,3 +124,13 @@ var addTwoNumbers = function(l1, l2) {
 //     node2 = node2.next;
 //     return [node1, node2];
 // }
+
+const lListNode1 = new ListNode(3);
+const lListNode2 = new ListNode(7);
+lListNode1.next = lListNode2;
+
+const lListNode3 = new ListNode(9);
+const lListNode4 = new ListNode(2);
+lListNode3.next = lListNode4;
+
+console.log(addTwoNumbers(lListNode1, lListNode3));
